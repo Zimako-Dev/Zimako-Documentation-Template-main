@@ -1,9 +1,14 @@
 import React from 'react';
+import { LastUpdated } from '../components/LastUpdated';
+import { docs } from '../data/docs';
 
 export function Introduction() {
+  const pageData = docs.find(doc => doc.id === 'introduction');
+
   return (
     <div className="prose dark:prose-invert prose-indigo max-w-none">
       <h1>Introduction</h1>
+      {pageData && <LastUpdated date={pageData.lastUpdated} />}
       <p className="lead">
         Welcome to our comprehensive documentation. This guide will help you understand our platform
         and make the most of its features.

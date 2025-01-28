@@ -1,37 +1,58 @@
 import React from 'react';
-import { navigation } from '../data/navigation';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
-export function Navigation() {
+interface NavigationProps {
+  mobile?: boolean;
+  onNavigate?: () => void;
+}
+
+const navItems = [
+  { name: 'Getting Started', items: [
+    { name: 'Introduction', href: '/docs/introduction' },
+    { name: 'Installation', href: '/docs/installation' },
+    { name: 'Quick Start', href: '/docs/quickstart' },
+  ]},
+  { name: 'Core Concepts', items: [
+    { name: 'Architecture', href: '/docs/architecture' },
+    { name: 'Configuration', href: '/docs/configuration' },
+  ]},
+];
+
+export function Navigation({ mobile, onNavigate }: NavigationProps) {
   const location = useLocation();
 
+  const isActive = (href: string) => location.pathname === href;
+
   return (
-    <nav className="space-y-8" role="navigation" aria-label="Main navigation">
-      {navigation.map((section) => (
-        <div key={section.title}>
-          <h3 className="font-semibold text-gray-900 dark:text-white transition-colors">{section.title}</h3>
-          <ul className="mt-3 space-y-2">
-            {section.items.map((item) => {
-              const isActive = location.pathname === item.href;
-              return (
-                <li key={item.href}>
-                  <Link
+    <nav className={`${mobile ? '' : 'sticky top-20'}`}>
+      <ul className="space-y-8">
+        {navItems.map((section) => (
+          <li key={section.name}>
+            <h2 className="font-semibold text-gray-900 dark:text-white mb-4">
+              {section.name}
+            </h2>
+            <ul className="space-y-2">
+              {section.items.map((item) => (
+                <li key={item.name}>
+                  <NavLink
                     to={item.href}
-                    className={`block rounded-md p-2 text-sm transition-colors ${
-                      isActive
-                        ? 'bg-indigo-50 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400'
-                        : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
-                    }`}
-                    aria-current={isActive ? 'page' : undefined}
+                    onClick={onNavigate}
+                    className={({ isActive }) =>
+                      `block px-3 py-2 text-sm transition-colors rounded-md ${
+                        isActive
+                          ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400'
+                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                      }`
+                    }
                   >
-                    {item.title}
-                  </Link>
+                    {item.name}
+                  </NavLink>
                 </li>
-              );
-            })}
-          </ul>
-        </div>
-      ))}
+              ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

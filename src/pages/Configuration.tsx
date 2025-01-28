@@ -1,9 +1,14 @@
 import React from 'react';
+import { LastUpdated } from '../components/LastUpdated';
+import { docs } from '../data/docs';
 
 export function Configuration() {
+  const pageData = docs.find(doc => doc.id === 'configuration');
+
   return (
     <div className="prose dark:prose-invert prose-indigo max-w-none">
       <h1>Configuration</h1>
+      {pageData && <LastUpdated date={pageData.lastUpdated} />}
       <p className="lead">
         Learn how to configure and customize the platform to meet your needs.
       </p>

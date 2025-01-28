@@ -1,9 +1,14 @@
 import React from 'react';
+import { LastUpdated } from '../components/LastUpdated';
+import { docs } from '../data/docs';
 
 export function QuickStart() {
+  const pageData = docs.find(doc => doc.id === 'quickstart');
+
   return (
     <div className="prose dark:prose-invert prose-indigo max-w-none">
       <h1>Quick Start</h1>
+      {pageData && <LastUpdated date={pageData.lastUpdated} />}
       <p className="lead">
         Get started with our platform in under 5 minutes.
       </p>

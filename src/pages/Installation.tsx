@@ -1,9 +1,14 @@
 import React from 'react';
+import { LastUpdated } from '../components/LastUpdated';
+import { docs } from '../data/docs';
 
 export function Installation() {
+  const pageData = docs.find(doc => doc.id === 'installation');
+
   return (
     <div className="prose dark:prose-invert prose-indigo max-w-none">
       <h1>Installation</h1>
+      {pageData && <LastUpdated date={pageData.lastUpdated} />}
       <p className="lead">
         Get up and running with our platform in just a few minutes.
       </p>
