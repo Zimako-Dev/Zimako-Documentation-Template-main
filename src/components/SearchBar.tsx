@@ -1,8 +1,10 @@
-import React, { useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
-import { useSearch } from '../hooks/useSearch';
+
+import React, { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { useOnClickOutside } from '../hooks/useOnClickOutside';
+import { useSearch } from '../hooks/useSearch';
 
 export function SearchBar() {
   const navigate = useNavigate();
@@ -28,15 +30,15 @@ export function SearchBar() {
   return (
     <div ref={searchRef} className="relative w-full max-w-md">
       <div className="relative">
-        <MagnifyingGlassIcon 
-          className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400 dark:text-gray-500" 
-          aria-hidden="true" 
+        <MagnifyingGlassIcon
+          className="pointer-events-none absolute left-4 top-3.5 h-5 w-5 text-gray-400 dark:text-gray-500"
+          aria-hidden="true"
         />
         <input
           ref={inputRef}
           type="text"
           value={searchTerm}
-          onChange={(e) => {
+          onChange={e => {
             setSearchTerm(e.target.value);
             setShowResults(true);
           }}
@@ -51,16 +53,14 @@ export function SearchBar() {
         <div className="absolute left-0 right-0 top-full z-50 mt-2 overflow-hidden rounded-lg bg-white shadow-lg dark:bg-gray-800 dark:ring-1 dark:ring-white/10">
           <div className="max-h-[calc(100vh-220px)] overflow-y-auto overscroll-contain px-2 py-3">
             {isSearching ? (
-              <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
-                Searching...
-              </div>
+              <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">Searching...</div>
             ) : results.length === 0 ? (
               <div className="px-3 py-2 text-sm text-gray-500 dark:text-gray-400">
                 No results found
               </div>
             ) : (
               <ul>
-                {results.map((result) => (
+                {results.map(result => (
                   <li key={result.id}>
                     <button
                       className="block w-full rounded-md px-3 py-2 text-left text-sm text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"

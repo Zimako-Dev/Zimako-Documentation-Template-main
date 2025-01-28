@@ -1,15 +1,74 @@
 import React from 'react';
-import { LastUpdated } from '../components/LastUpdated';
-import { ContentEditor } from '../components/ContentEditor';
+
 import { CodeBlock } from '../components/CodeBlock';
 import { Collapsible } from '../components/Collapsible';
+import { ContentEditor } from '../components/ContentEditor';
+import { LastUpdated } from '../components/LastUpdated';
+import { MermaidDiagram } from '../components/MermaidDiagram';
 import { useDocStore } from '../hooks/useDocContent';
 
 export function Architecture() {
-  const docs = useDocStore((state) => state.docs);
+  const docs = useDocStore(state => state.docs);
   const pageData = docs.find(doc => doc.id === 'architecture');
 
   if (!pageData) return null;
+
+  const systemArchitectureDiagram = `
+graph TD
+    Client[Client Application]
+    API[API Gateway]
+    Auth[Authentication Service]
+    Cache[Cache Layer]
+    DB[(Database)]
+    
+    Client -->|HTTP/HTTPS| API
+    API -->|Validate| Auth
+    API -->|Query| Cache
+    Cache -->|Miss| DB
+    DB -->|Update| Cache
+  `;
+
+  const authFlowDiagram = `
+sequenceDiagram
+    participant C as Client
+    participant A as API
+    participant Auth as Auth Service
+    participant DB as Database
+    
+    C->>A: Login Request
+    A->>Auth: Validate Credentials
+    Auth->>DB: Check User
+    DB-->>Auth: User Data
+    Auth-->>A: Generate Token
+    A-->>C: Return JWT
+  `;
+
+  const componentDiagram = `
+classDiagram
+    class APIGateway {
+        +handleRequest()
+        +validateToken()
+        +routeRequest()
+    }
+    class AuthService {
+        +login()
+        +register()
+        +validateToken()
+    }
+    class CacheService {
+        +get()
+        +set()
+        +invalidate()
+    }
+    class Database {
+        +query()
+        +transaction()
+    }
+    
+    APIGateway --> AuthService
+    APIGateway --> CacheService
+    CacheService --> Database
+  `;
 
   const exampleCode = `// Example API Route
 import { Router } from 'express';
@@ -48,16 +107,17 @@ export default router;`;
       <div className="max-w-4xl mx-auto">
         <h1 className="mb-4">Architecture</h1>
         <LastUpdated date={pageData.lastUpdated} />
-        
-        <ContentEditor
-          id={pageData.id}
-          content={pageData.content}
-          className="lead"
-        />
+
+        <ContentEditor id={pageData.id} content={pageData.content} className="lead" />
 
         <div className="space-y-8">
           <section>
             <h2 className="text-2xl font-bold mb-4">System Overview</h2>
+            <p className="mb-4">
+              Our system architecture follows a microservices pattern with the following key
+              components:
+            </p>
+            <MermaidDiagram definition={systemArchitectureDiagram} className="my-8" />
             <Collapsible title="Core Components" level="info" defaultOpen>
               <ul className="space-y-2">
                 <li className="flex items-start">
@@ -81,6 +141,44 @@ export default router;`;
           </section>
 
           <section>
+            <h2 className="text-2xl font-bold mb-4">Authentication Flow</h2>
+            <p className="mb-4">
+              The authentication process follows a secure token-based approach:
+            </p>
+            <MermaidDiagram definition={authFlowDiagram} className="my-8" />
+            <Collapsible title="Authentication Details" level="success">
+              <div className="space-y-2">
+                <p>Our authentication system uses a multi-layer approach:</p>
+                <ol className="list-decimal list-inside space-y-1">
+                  <li>JWT tokens for stateless authentication</li>
+                  <li>Refresh tokens for extended sessions</li>
+                  <li>Role-based access control (RBAC)</li>
+                  <li>OAuth2 integration for third-party authentication</li>
+                </ol>
+              </div>
+            </Collapsible>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-bold mb-4">Component Structure</h2>
+            <p className="mb-4">
+              Our system is composed of several key services that work together:
+            </p>
+            <MermaidDiagram definition={componentDiagram} className="my-8" />
+            <Collapsible title="Component Details" level="info">
+              <div className="space-y-2">
+                <p>Each component has specific responsibilities:</p>
+                <ul className="list-disc list-inside space-y-1">
+                  <li>API Gateway: Routes and validates requests</li>
+                  <li>Auth Service: Handles authentication and authorization</li>
+                  <li>Cache Service: Manages data caching</li>
+                  <li>Database: Persistent storage</li>
+                </ul>
+              </div>
+            </Collapsible>
+          </section>
+
+          <section>
             <h2 className="text-2xl font-bold mb-4">API Structure</h2>
             <p className="mb-4">Our API follows RESTful principles with the following structure:</p>
             <CodeBlock
@@ -95,11 +193,7 @@ export default router;`;
             <h2 className="text-2xl font-bold mb-4">Configuration</h2>
             <Collapsible title="Configuration Options" level="warning">
               <p className="mb-4">The system can be configured using a JSON configuration file:</p>
-              <CodeBlock
-                code={configExample}
-                language="json"
-                filename="config.json"
-              />
+              <CodeBlock code={configExample} language="json" filename="config.json" />
             </Collapsible>
           </section>
 

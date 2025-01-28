@@ -1,6 +1,7 @@
+import { motion } from 'framer-motion';
+
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { motion } from 'framer-motion';
 
 interface NavigationProps {
   mobile?: boolean;
@@ -8,15 +9,21 @@ interface NavigationProps {
 }
 
 const navItems = [
-  { name: 'Getting Started', items: [
-    { name: 'Introduction', href: '/docs/introduction' },
-    { name: 'Installation', href: '/docs/installation' },
-    { name: 'Quick Start', href: '/docs/quickstart' },
-  ]},
-  { name: 'Core Concepts', items: [
-    { name: 'Architecture', href: '/docs/architecture' },
-    { name: 'Configuration', href: '/docs/configuration' },
-  ]},
+  {
+    name: 'Getting Started',
+    items: [
+      { name: 'Introduction', href: '/docs/introduction' },
+      { name: 'Installation', href: '/docs/installation' },
+      { name: 'Quick Start', href: '/docs/quickstart' },
+    ],
+  },
+  {
+    name: 'Core Concepts',
+    items: [
+      { name: 'Architecture', href: '/docs/architecture' },
+      { name: 'Configuration', href: '/docs/configuration' },
+    ],
+  },
 ];
 
 const container = {
@@ -42,18 +49,16 @@ export function Navigation({ mobile, onNavigate }: NavigationProps) {
   return (
     <nav className={`${mobile ? '' : 'sticky top-20'}`}>
       <ul className="space-y-8">
-        {navItems.map((section) => (
+        {navItems.map(section => (
           <li key={section.name}>
-            <h2 className="font-semibold text-gray-900 dark:text-white mb-4">
-              {section.name}
-            </h2>
+            <h2 className="font-semibold text-gray-900 dark:text-white mb-4">{section.name}</h2>
             <motion.nav
               variants={container}
               initial="hidden"
               animate="show"
               className="space-y-1 px-3"
             >
-              {section.items.map((item) => (
+              {section.items.map(item => (
                 <motion.div key={item.name} variants={item}>
                   <NavLink
                     to={item.href}

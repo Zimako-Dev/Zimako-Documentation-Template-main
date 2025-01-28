@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { docs as initialDocs, DocPage } from '../data/docs';
+
+import { DocPage, docs as initialDocs } from '../data/docs';
 
 interface DocStore {
   docs: DocPage[];
@@ -9,11 +10,11 @@ interface DocStore {
 
 export const useDocStore = create<DocStore>()(
   persist(
-    (set) => ({
+    set => ({
       docs: initialDocs,
       updateDoc: (id, updates) =>
-        set((state) => ({
-          docs: state.docs.map((doc) =>
+        set(state => ({
+          docs: state.docs.map(doc =>
             doc.id === id
               ? {
                   ...doc,

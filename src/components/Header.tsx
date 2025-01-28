@@ -1,7 +1,9 @@
+import { Bars3Icon } from '@heroicons/react/24/outline';
+
 import React from 'react';
+
 import { SearchBar } from './SearchBar';
 import { ThemeToggle } from './ThemeToggle';
-import { Bars3Icon } from '@heroicons/react/24/outline';
 
 interface HeaderProps {
   onMenuClick?: () => void;
@@ -22,9 +24,11 @@ export function Header({ onMenuClick }: HeaderProps) {
         </button>
 
         <div className="flex items-center gap-x-4 lg:gap-x-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">Documentation</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
+            Documentation
+          </h1>
         </div>
-        
+
         {/* Search and Theme Toggle */}
         <div className="flex flex-1 items-center justify-end gap-x-4 self-stretch lg:gap-x-6">
           <div className="flex flex-1 justify-end">

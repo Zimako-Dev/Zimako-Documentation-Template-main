@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { ClipboardDocumentIcon, CheckIcon } from '@heroicons/react/24/outline';
+import { CheckIcon, ClipboardDocumentIcon } from '@heroicons/react/24/outline';
 import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
-import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-bash';
 import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-json';
 import 'prismjs/components/prism-jsx';
 import 'prismjs/components/prism-tsx';
-import 'prismjs/components/prism-bash';
-import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-typescript';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import 'prismjs/themes/prism-tomorrow.css';
+
+import React, { useEffect, useState } from 'react';
 
 interface CodeBlockProps {
   code: string;

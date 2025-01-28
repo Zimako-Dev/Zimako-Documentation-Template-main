@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { LastUpdated } from '../components/LastUpdated';
 import { docs } from '../data/docs';
 
@@ -9,9 +10,7 @@ export function Installation() {
     <div className="prose dark:prose-invert prose-indigo max-w-none">
       <h1>Installation</h1>
       {pageData && <LastUpdated date={pageData.lastUpdated} />}
-      <p className="lead">
-        Get up and running with our platform in just a few minutes.
-      </p>
+      <p className="lead">Get up and running with our platform in just a few minutes.</p>
 
       <h2>Prerequisites</h2>
       <ul>
@@ -43,9 +42,7 @@ export function Installation() {
       </div>
 
       <h2>Verification</h2>
-      <p>
-        To verify your installation, run the following command:
-      </p>
+      <p>To verify your installation, run the following command:</p>
       <pre className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
         <code>npm run dev</code>
       </pre>

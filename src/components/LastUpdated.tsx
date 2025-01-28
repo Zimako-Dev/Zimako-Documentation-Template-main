@@ -1,5 +1,6 @@
-import React from 'react';
 import { ClockIcon } from '@heroicons/react/24/outline';
+
+import React from 'react';
 
 interface LastUpdatedProps {
   date: string;
@@ -11,7 +12,7 @@ export const LastUpdated: React.FC<LastUpdatedProps> = ({ date }) => {
     const options: Intl.DateTimeFormatOptions = {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };

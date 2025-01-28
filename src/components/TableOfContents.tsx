@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 interface TOCItem {
   id: string;
@@ -15,20 +16,19 @@ export function TableOfContents() {
   const location = useLocation();
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll('h1, h2, h3'))
-      .map((element) => ({
-        id: element.id,
-        title: element.textContent || '',
-        level: Number(element.tagName.charAt(1)),
-      }));
+    const elements = Array.from(document.querySelectorAll('h1, h2, h3')).map(element => ({
+      id: element.id,
+      title: element.textContent || '',
+      level: Number(element.tagName.charAt(1)),
+    }));
     setHeadings(elements);
     setIsOpen(false);
   }, [location]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) {
             setActiveId(entry.target.id);
           }
@@ -67,16 +67,10 @@ export function TableOfContents() {
       </button>
 
       {/* Content */}
-      <nav
-        className={`${
-          isOpen ? 'block' : 'hidden xl:block'
-        } mt-4 xl:mt-0`}
-      >
-        <h2 className="font-semibold text-gray-900 dark:text-white">
-          On this page
-        </h2>
+      <nav className={`${isOpen ? 'block' : 'hidden xl:block'} mt-4 xl:mt-0`}>
+        <h2 className="font-semibold text-gray-900 dark:text-white">On this page</h2>
         <ul className="mt-4 space-y-3 text-sm">
-          {headings.map((heading) => (
+          {headings.map(heading => (
             <li
               key={heading.id}
               style={{
@@ -85,7 +79,7 @@ export function TableOfContents() {
             >
               <a
                 href={`#${heading.id}`}
-                onClick={(e) => {
+                onClick={e => {
                   e.preventDefault();
                   document.getElementById(heading.id)?.scrollIntoView({
                     behavior: 'smooth',

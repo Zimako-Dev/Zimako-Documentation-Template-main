@@ -31,7 +31,7 @@
 }
 
 /* Code Block Styles */
-pre[class*="language-"] {
+pre[class*='language-'] {
   background: var(--prism-background);
   color: var(--prism-foreground);
   text-shadow: none;
@@ -50,12 +50,12 @@ pre[class*="language-"] {
 }
 
 /* Line Numbers Container */
-pre[class*="language-"].line-numbers {
+pre[class*='language-'].line-numbers {
   padding-left: 4.5rem;
   counter-reset: linenumber;
 }
 
-pre[class*="language-"].line-numbers > code {
+pre[class*='language-'].line-numbers > code {
   position: relative;
   white-space: inherit;
 }
@@ -89,7 +89,7 @@ pre[class*="language-"].line-numbers > code {
 }
 
 /* Code Content */
-pre[class*="language-"] > code {
+pre[class*='language-'] > code {
   display: block;
   padding: 0;
 }
@@ -177,12 +177,12 @@ pre[class*="language-"] > code {
 
 /* Mobile Optimizations */
 @media (max-width: 640px) {
-  pre[class*="language-"] {
+  pre[class*='language-'] {
     font-size: 13px;
     padding: 0.75rem;
   }
 
-  pre[class*="language-"].line-numbers {
+  pre[class*='language-'].line-numbers {
     padding-left: 3.8rem;
   }
 

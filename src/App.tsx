@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { AnimatePresence } from 'framer-motion';
+
+import React, { useState } from 'react';
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
+import { PageTransition } from './components/PageTransition';
 import { TableOfContents } from './components/TableOfContents';
 import { SearchProvider } from './hooks/useSearch';
-import { Introduction } from './pages/Introduction';
-import { Installation } from './pages/Installation';
-import { QuickStart } from './pages/QuickStart';
 import { Architecture } from './pages/Architecture';
 import { Configuration } from './pages/Configuration';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { PageTransition } from './components/PageTransition';
+import { Installation } from './pages/Installation';
+import { Introduction } from './pages/Introduction';
+import { QuickStart } from './pages/QuickStart';
 import './styles/prism-custom.css';
 
 function AnimatedRoutes() {
@@ -84,15 +86,15 @@ function App() {
             onMenuClick={() => setSidebarOpen(true)}
             className="fixed left-0 right-0 top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80"
           />
-          
+
           {/* Mobile sidebar */}
           <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? '' : 'hidden'}`}>
             {/* Overlay */}
-            <div 
+            <div
               className="fixed inset-0 bg-gray-900/80 backdrop-blur-sm"
               onClick={() => setSidebarOpen(false)}
             />
-            
+
             {/* Sidebar */}
             <div className="fixed inset-y-0 left-0 w-full max-w-xs bg-white dark:bg-gray-800 p-4">
               <div className="flex items-center justify-between mb-4">
@@ -117,14 +119,14 @@ function App() {
                     <Navigation />
                   </div>
                 </div>
-                
+
                 {/* Main content */}
                 <main className="flex-1" role="main">
                   <div className="px-1 sm:px-4">
                     <AnimatedRoutes />
                   </div>
                 </main>
-                
+
                 {/* Table of Contents - Desktop */}
                 <div className="hidden xl:block xl:w-64 shrink-0">
                   <div className="sticky top-20">

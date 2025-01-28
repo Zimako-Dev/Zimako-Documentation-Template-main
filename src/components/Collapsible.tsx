@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
+
+import React, { useEffect, useRef, useState } from 'react';
 
 interface CollapsibleProps {
   title: string;
@@ -8,11 +9,11 @@ interface CollapsibleProps {
   level?: 'default' | 'info' | 'warning' | 'success';
 }
 
-export function Collapsible({ 
-  title, 
-  children, 
+export function Collapsible({
+  title,
+  children,
   defaultOpen = false,
-  level = 'default'
+  level = 'default',
 }: CollapsibleProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -30,25 +31,29 @@ export function Collapsible({
           break;
         case 'ArrowUp':
           e.preventDefault();
-          const prev = buttonRef.current?.closest('[role="region"]')
+          const prev = buttonRef.current
+            ?.closest('[role="region"]')
             ?.previousElementSibling?.querySelector('button');
           prev?.focus();
           break;
         case 'ArrowDown':
           e.preventDefault();
-          const next = buttonRef.current?.closest('[role="region"]')
+          const next = buttonRef.current
+            ?.closest('[role="region"]')
             ?.nextElementSibling?.querySelector('button');
           next?.focus();
           break;
         case 'Home':
           e.preventDefault();
-          const first = buttonRef.current?.closest('[role="region"]')
+          const first = buttonRef.current
+            ?.closest('[role="region"]')
             ?.parentElement?.firstElementChild?.querySelector('button');
           first?.focus();
           break;
         case 'End':
           e.preventDefault();
-          const last = buttonRef.current?.closest('[role="region"]')
+          const last = buttonRef.current
+            ?.closest('[role="region"]')
             ?.parentElement?.lastElementChild?.querySelector('button');
           last?.focus();
           break;
@@ -99,7 +104,7 @@ export function Collapsible({
   };
 
   return (
-    <div 
+    <div
       className={`my-4 overflow-hidden rounded-lg border ${getBorderColor()}`}
       role="region"
       aria-labelledby={`collapsible-${title.toLowerCase().replace(/\s+/g, '-')}`}

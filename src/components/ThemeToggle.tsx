@@ -1,5 +1,7 @@
+import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+
 import React from 'react';
-import { SunIcon, MoonIcon } from '@heroicons/react/24/outline';
+
 import { useTheme } from '../hooks/useTheme';
 
 export function ThemeToggle() {

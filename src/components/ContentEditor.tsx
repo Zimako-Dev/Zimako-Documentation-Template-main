@@ -1,6 +1,8 @@
+import { CheckIcon, PencilIcon, XMarkIcon } from '@heroicons/react/24/outline';
+
 import React, { useState } from 'react';
+
 import { useDocStore } from '../hooks/useDocContent';
-import { PencilIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 interface ContentEditorProps {
   id: string;
@@ -8,10 +10,14 @@ interface ContentEditorProps {
   className?: string;
 }
 
-export const ContentEditor: React.FC<ContentEditorProps> = ({ id, content: initialContent, className = '' }) => {
+export const ContentEditor: React.FC<ContentEditorProps> = ({
+  id,
+  content: initialContent,
+  className = '',
+}) => {
   const [isEditing, setIsEditing] = useState(false);
   const [content, setContent] = useState(initialContent);
-  const updateDoc = useDocStore((state) => state.updateDoc);
+  const updateDoc = useDocStore(state => state.updateDoc);
 
   const handleSave = () => {
     updateDoc(id, { content });
@@ -26,9 +32,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({ id, content: initi
   if (!isEditing) {
     return (
       <div className="group relative">
-        <div className={className}>
-          {content}
-        </div>
+        <div className={className}>{content}</div>
         <button
           onClick={() => setIsEditing(true)}
           className="absolute top-0 right-0 p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
@@ -44,7 +48,7 @@ export const ContentEditor: React.FC<ContentEditorProps> = ({ id, content: initi
     <div className="space-y-4">
       <textarea
         value={content}
-        onChange={(e) => setContent(e.target.value)}
+        onChange={e => setContent(e.target.value)}
         className="w-full min-h-[200px] p-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100"
       />
       <div className="flex justify-end space-x-2">

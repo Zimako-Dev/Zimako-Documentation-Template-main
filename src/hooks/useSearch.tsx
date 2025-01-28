@@ -1,5 +1,7 @@
-import { createContext, useContext, useEffect, useState } from 'react';
 import FlexSearch from 'flexsearch';
+
+import { createContext, useContext, useEffect, useState } from 'react';
+
 import { DocPage } from '../data/docs';
 import { useDocStore } from './useDocContent';
 
@@ -30,7 +32,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const docs = useDocStore((state) => state.docs);
+  const docs = useDocStore(state => state.docs);
 
   // Initialize FlexSearch index
   useEffect(() => {
@@ -38,7 +40,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
       document: {
         id: 'id',
         index: ['title', 'content'],
-        store: true
+        store: true,
       },
       tokenize: 'forward',
       resolution: 9,
@@ -46,7 +48,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
       worker: true,
       threshold: 0,
       depth: 3,
-      language: "en"
+      language: 'en',
     });
 
     // Add documents to the index
@@ -55,7 +57,7 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
         id: doc.id,
         title: doc.title.toLowerCase(),
         content: doc.content.toLowerCase(),
-        url: doc.url
+        url: doc.url,
       });
     });
 
@@ -73,20 +75,20 @@ export const SearchProvider: React.FC<SearchProviderProps> = ({ children }) => {
       setIsSearching(true);
       try {
         const searchQuery = searchTerm.toLowerCase().trim();
-        
+
         // Search in both title and content fields
         const titleResults = await searchIndex.search(searchQuery, {
           index: ['title'],
           limit: 5,
           suggest: true,
-          bool: "or"
+          bool: 'or',
         });
 
         const contentResults = await searchIndex.search(searchQuery, {
           index: ['content'],
           limit: 5,
           suggest: true,
-          bool: "or"
+          bool: 'or',
         });
 
         // Combine and deduplicate results

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { LastUpdated } from '../components/LastUpdated';
 import { docs } from '../data/docs';
 
@@ -17,8 +18,8 @@ export function Introduction() {
       <h2>What is Our Platform?</h2>
       <p>
         Our platform is a modern, scalable solution designed to help developers build better
-        applications faster. With a focus on developer experience and best practices, we provide
-        the tools you need to succeed.
+        applications faster. With a focus on developer experience and best practices, we provide the
+        tools you need to succeed.
       </p>
 
       <h2>Key Features</h2>
@@ -31,9 +32,9 @@ export function Introduction() {
 
       <h2>Why Choose Us?</h2>
       <p>
-        We combine cutting-edge technology with practical solutions to help you build
-        better applications. Our platform is built by developers, for developers,
-        with a focus on productivity and maintainability.
+        We combine cutting-edge technology with practical solutions to help you build better
+        applications. Our platform is built by developers, for developers, with a focus on
+        productivity and maintainability.
       </p>
     </div>
   );

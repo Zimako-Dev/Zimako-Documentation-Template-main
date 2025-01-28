@@ -13,7 +13,7 @@ export const docs: DocPage[] = [
     content: `Welcome to our documentation. This guide will help you understand our platform and get started quickly.
     Here you'll find comprehensive guides and documentation to help you start working with our platform as quickly as possible.`,
     url: '/docs/introduction',
-    lastUpdated: '2025-01-28'
+    lastUpdated: '2025-01-28',
   },
   {
     id: 'installation',
@@ -21,7 +21,7 @@ export const docs: DocPage[] = [
     content: `Learn how to install and set up our platform. We'll guide you through the prerequisites and installation steps
     to ensure you have everything set up correctly.`,
     url: '/docs/installation',
-    lastUpdated: '2025-01-28'
+    lastUpdated: '2025-01-28',
   },
   {
     id: 'quickstart',
@@ -29,7 +29,7 @@ export const docs: DocPage[] = [
     content: `Get up and running quickly with our quick start guide. This guide will walk you through the basics
     and help you create your first project.`,
     url: '/docs/quickstart',
-    lastUpdated: '2025-01-28'
+    lastUpdated: '2025-01-28',
   },
   {
     id: 'architecture',
@@ -52,7 +52,7 @@ export const docs: DocPage[] = [
     - Node.js runtime environment
     - Container orchestration support`,
     url: '/docs/architecture',
-    lastUpdated: '2025-01-28'
+    lastUpdated: '2025-01-28',
   },
   {
     id: 'configuration',
@@ -60,7 +60,7 @@ export const docs: DocPage[] = [
     content: `Learn about the various configuration options available. This guide covers all the settings
     and customization options you can use to tailor the platform to your needs.`,
     url: '/docs/configuration',
-    lastUpdated: '2025-01-28'
+    lastUpdated: '2025-01-28',
   },
   // Add more documentation pages here
 ];
