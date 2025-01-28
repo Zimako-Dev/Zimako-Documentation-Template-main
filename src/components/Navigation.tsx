@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 interface NavigationProps {
   mobile?: boolean;
@@ -18,6 +19,21 @@ const navItems = [
   ]},
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, x: -20 },
+  show: { opacity: 1, x: 0 },
+};
+
 export function Navigation({ mobile, onNavigate }: NavigationProps) {
   const location = useLocation();
 
@@ -31,25 +47,30 @@ export function Navigation({ mobile, onNavigate }: NavigationProps) {
             <h2 className="font-semibold text-gray-900 dark:text-white mb-4">
               {section.name}
             </h2>
-            <ul className="space-y-2">
+            <motion.nav
+              variants={container}
+              initial="hidden"
+              animate="show"
+              className="space-y-1 px-3"
+            >
               {section.items.map((item) => (
-                <li key={item.name}>
+                <motion.div key={item.name} variants={item}>
                   <NavLink
                     to={item.href}
                     onClick={onNavigate}
                     className={({ isActive }) =>
-                      `block px-3 py-2 text-sm transition-colors rounded-md ${
+                      `block rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                         isActive
-                          ? 'bg-blue-50 text-blue-600 dark:bg-blue-900/50 dark:text-blue-400'
-                          : 'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800'
+                          ? 'bg-gray-100 text-gray-900 dark:bg-gray-800 dark:text-white'
+                          : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300'
                       }`
                     }
                   >
                     {item.name}
                   </NavLink>
-                </li>
+                </motion.div>
               ))}
-            </ul>
+            </motion.nav>
           </li>
         ))}
       </ul>

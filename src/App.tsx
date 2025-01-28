@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { Header } from './components/Header';
 import { Navigation } from './components/Navigation';
 import { TableOfContents } from './components/TableOfContents';
@@ -10,16 +11,79 @@ import { QuickStart } from './pages/QuickStart';
 import { Architecture } from './pages/Architecture';
 import { Configuration } from './pages/Configuration';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { PageTransition } from './components/PageTransition';
 import './styles/prism-custom.css';
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        <Route
+          path="/docs/introduction"
+          element={
+            <PageTransition>
+              <Introduction />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/docs/installation"
+          element={
+            <PageTransition>
+              <Installation />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/docs/quickstart"
+          element={
+            <PageTransition>
+              <QuickStart />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/docs/architecture"
+          element={
+            <PageTransition>
+              <Architecture />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/docs/configuration"
+          element={
+            <PageTransition>
+              <Configuration />
+            </PageTransition>
+          }
+        />
+        <Route
+          path="/"
+          element={
+            <PageTransition>
+              <Introduction />
+            </PageTransition>
+          }
+        />
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
-    <SearchProvider>
-      <Router>
+    <Router>
+      <SearchProvider>
         <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-          <Header onMenuClick={() => setSidebarOpen(true)} />
+          <Header
+            onMenuClick={() => setSidebarOpen(true)}
+            className="fixed left-0 right-0 top-0 z-40 border-b border-gray-200 bg-white/80 backdrop-blur dark:border-gray-800 dark:bg-gray-900/80"
+          />
           
           {/* Mobile sidebar */}
           <div className={`fixed inset-0 z-50 lg:hidden ${sidebarOpen ? '' : 'hidden'}`}>
@@ -57,14 +121,7 @@ function App() {
                 {/* Main content */}
                 <main className="flex-1" role="main">
                   <div className="px-1 sm:px-4">
-                    <Routes>
-                      <Route path="/docs/introduction" element={<Introduction />} />
-                      <Route path="/docs/installation" element={<Installation />} />
-                      <Route path="/docs/quickstart" element={<QuickStart />} />
-                      <Route path="/docs/architecture" element={<Architecture />} />
-                      <Route path="/docs/configuration" element={<Configuration />} />
-                      <Route path="/" element={<Introduction />} />
-                    </Routes>
+                    <AnimatedRoutes />
                   </div>
                 </main>
                 
@@ -78,8 +135,8 @@ function App() {
             </div>
           </div>
         </div>
-      </Router>
-    </SearchProvider>
+      </SearchProvider>
+    </Router>
   );
 }
 
