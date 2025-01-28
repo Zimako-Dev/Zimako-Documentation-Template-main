@@ -1,5 +1,10 @@
-const fs = require('fs');
-const path = require('path');
+import { readFileSync, writeFileSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Map of file paths to doc IDs
 const FILE_TO_DOC_MAP = {
@@ -11,12 +16,11 @@ const FILE_TO_DOC_MAP = {
 };
 
 // Read the docs data file
-const docsPath = path.join(__dirname, '../src/data/docs.ts');
-const docsContent = fs.readFileSync(docsPath, 'utf8');
+const docsPath = join(__dirname, '../src/data/docs.ts');
+const docsContent = readFileSync(docsPath, 'utf8');
 
 // Get the modified files from git diff
 const getModifiedFiles = () => {
-  const { execSync } = require('child_process');
   try {
     const diff = execSync('git diff --name-only HEAD@{1} HEAD').toString();
     return diff.split('\n').filter(Boolean);
@@ -43,7 +47,7 @@ const updateDates = () => {
 
   // Only write if there were changes
   if (updatedContent !== docsContent) {
-    fs.writeFileSync(docsPath, updatedContent, 'utf8');
+    writeFileSync(docsPath, updatedContent, 'utf8');
     console.log('Updated last modified dates for:', modifiedFiles.filter(f => FILE_TO_DOC_MAP[f]));
   }
 };
