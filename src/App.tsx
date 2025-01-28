@@ -10,6 +10,7 @@ import { QuickStart } from './pages/QuickStart';
 import { Architecture } from './pages/Architecture';
 import { Configuration } from './pages/Configuration';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import './styles/prism-custom.css';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
